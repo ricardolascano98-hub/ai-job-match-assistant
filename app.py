@@ -1,4 +1,5 @@
 import streamlit as st
+import re
 
 st.set_page_config(page_title="AI Job Match Assistant")
 
@@ -12,8 +13,10 @@ job = st.text_area("Paste Job Description")
 
 if st.button("Analyze"):
 
-    resume_words = set(resume.lower().split())
-    job_words = set(job.lower().split())
+    import re
+
+    resume_words = set(re.findall(r"\b[a-zA-Z0-9+#.-]+\b", resume.lower()))
+    job_words = set(re.findall(r"\b[a-zA-Z0-9+#.-]+\b", job.lower()))
 
     matches = resume_words.intersection(job_words)
 
